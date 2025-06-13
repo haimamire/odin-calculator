@@ -3,7 +3,7 @@ const displayDiv = document.querySelector(".display");
 const numberButtons = document.querySelectorAll(".number");
 
 // Operator selectors
-const sumButton = document.querySelector("#sum-button")
+const operatorButtons = document.querySelectorAll(".operator");
 
 const equalButton = document.querySelector("#equal-button");
 
@@ -54,24 +54,23 @@ numberButtons.forEach(button => {
 
 
 // Save first number and operator when an operator button is pressed
-sumButton.addEventListener(
-    "click",
-    (e) => {
-        if (currentOperation.firstNumber === undefined) {
+operatorButtons.forEach(button => {
+    button.addEventListener(
+        "click",
+        (e) => {
+            if (currentOperation.firstNumber === "") {
 
-        } else {
-            currentOperation.operator = "+";
+            } else {
+                currentOperation.operator = e.target.textContent;
+            }
         }
-    }
-)
-
+    )
+});
 
 equalButton.addEventListener(
     "click",
     (e) => {
-        if (isOperationEmpty()) {
-
-        } else {
+        if (!isOperationEmpty()) {
             let firstNumber = currentOperation.firstNumber;
             let operator = currentOperation.operator;
             let secondNumber = currentOperation.secondNumber;
@@ -80,6 +79,21 @@ equalButton.addEventListener(
                 case "+":
                     displayResult(
                         sum(firstNumber, secondNumber)
+                    );
+                    break;
+                case "-":
+                    displayResult(
+                        substract(firstNumber, secondNumber)
+                    );
+                    break;
+                case "*":
+                    displayResult(
+                        multiply(firstNumber, secondNumber)
+                    );
+                    break;
+                case "/":
+                    displayResult(
+                        divide(firstNumber, secondNumber)
                     );
                     break;
             }
