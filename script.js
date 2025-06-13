@@ -63,14 +63,28 @@ sumButton.addEventListener(
     }
 )
 
-console.log(isOperationEmpty());
 
-// equalButton.addEventListener(
-//     "click",
-//     (e) => {
-//         if ()
-//     }
-// )
+equalButton.addEventListener(
+    "click",
+    (e) => {
+        if (isOperationEmpty()) {
+
+        } else {
+            let firstNumber = currentOperation.firstNumber;
+            let operator = currentOperation.operator;
+            let secondNumber = currentOperation.secondNumber;
+
+            switch(operator) {
+                case "+":
+                    displayResult(
+                        sum(firstNumber, secondNumber)
+                    );
+                    break;
+            }
+
+        }
+    }
+)
     // If empty return message and clear everything
 // When = button is pressed, save second number and call operate function
     // If empty return just first number
