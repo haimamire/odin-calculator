@@ -9,14 +9,14 @@ const sumButton = document.querySelector("#sum-button")
 const equalButton = document.querySelector("#equal-button");
 
 let currentOperation = {
-    firstNumber: undefined,
-    operator: undefined,
-    secondNumber: undefined
+    firstNumber: "",
+    operator: "",
+    secondNumber: ""
 }
 
 // Basic operations
 function sum(a, b) {
-    return a + b;
+    return parseFloat(a) + parseFloat(b);
 }
 function substract(a, b) {
     return a - b;
@@ -31,7 +31,7 @@ function divide(a, b) {
 
 function isOperationEmpty() {
     for (const key in currentOperation) {
-        if (currentOperation[key] === undefined) return true;
+        if (currentOperation[key] === "") return true;
     }
     return false;
 }
@@ -43,10 +43,11 @@ function displayResult(displayContent) {
 oneButton.addEventListener(
     "click",
     (e) => {
-        if (currentOperation.firstNumber === undefined) {
-            currentOperation.firstNumber = 1;
+        if (currentOperation.firstNumber === ""
+            || currentOperation.operator === "") {
+            currentOperation.firstNumber += "1";
         } else {
-            currentOperation.secondNumber = 1;
+            currentOperation.secondNumber += "1";
         }
     }
 )
