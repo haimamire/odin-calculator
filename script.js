@@ -58,9 +58,7 @@ operatorButtons.forEach(button => {
     button.addEventListener(
         "click",
         (e) => {
-            if (currentOperation.firstNumber === "") {
-
-            } else {
+            if (currentOperation.firstNumber !== "" && currentOperation.operator === "") {
                 currentOperation.operator = e.target.textContent;
             }
         }
