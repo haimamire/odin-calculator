@@ -1,7 +1,6 @@
 const displayDiv = document.querySelector(".display");
 
-// Number selectors
-const oneButton = document.querySelector("#one");
+const numberButtons = document.querySelectorAll(".number");
 
 // Operator selectors
 const sumButton = document.querySelector("#sum-button")
@@ -19,14 +18,14 @@ function sum(a, b) {
     return parseFloat(a) + parseFloat(b);
 }
 function substract(a, b) {
-    return a - b;
+    return parseFloat(a) - parseFloat(b);
 }
 function multiply(a, b) {
-    return a * b;
+    return parseFloat(a) * parseFloat(b);
 }
 function divide(a, b) {
     if (b == 0) return "BRUH";
-    return Math.round((a / b) * 100) / 100;
+    return Math.round((parseFloat(a) / parseFloat(b)) * 100) / 100;
 }
 
 function isOperationEmpty() {
@@ -40,17 +39,19 @@ function displayResult(displayContent) {
     displayDiv.textContent = displayContent;
 }
 
-oneButton.addEventListener(
-    "click",
-    (e) => {
-        if (currentOperation.firstNumber === ""
-            || currentOperation.operator === "") {
-            currentOperation.firstNumber += "1";
-        } else {
-            currentOperation.secondNumber += "1";
+numberButtons.forEach(button => {
+    button.addEventListener(
+        "click",
+        (e) => {
+            if (currentOperation.firstNumber === "" || currentOperation.operator === "") {
+                currentOperation.firstNumber += e.target.id;
+            } else {
+                currentOperation.secondNumber += e.target.id;
+            }
         }
-    }
-)
+    )
+});
+
 
 // Save first number and operator when an operator button is pressed
 sumButton.addEventListener(
