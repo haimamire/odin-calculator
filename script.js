@@ -29,6 +29,13 @@ function divide(a, b) {
     return Math.round((a / b) * 100) / 100;
 }
 
+function isOperationEmpty() {
+    for (const key in currentOperation) {
+        if (currentOperation[key] === undefined) return true;
+    }
+    return false;
+}
+
 function displayResult(displayContent) {
     displayDiv.textContent = displayContent;
 }
@@ -41,7 +48,6 @@ oneButton.addEventListener(
         } else {
             currentOperation.secondNumber = 1;
         }
-        console.table(currentOperation);
     }
 )
 
@@ -54,9 +60,17 @@ sumButton.addEventListener(
         } else {
             currentOperation.operator = "+";
         }
-        console.table(currentOperation);
     }
 )
+
+console.log(isOperationEmpty());
+
+// equalButton.addEventListener(
+//     "click",
+//     (e) => {
+//         if ()
+//     }
+// )
     // If empty return message and clear everything
 // When = button is pressed, save second number and call operate function
     // If empty return just first number
