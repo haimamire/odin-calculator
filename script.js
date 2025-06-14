@@ -9,7 +9,6 @@ const numberButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
 const equalButton = document.querySelector("#equal-button");
 
-
 // Basic operations
 function sum(a, b) {
     return parseFloat(a) + parseFloat(b);
@@ -42,13 +41,14 @@ numberButtons.forEach(button => {
     button.addEventListener(
         "click",
         (e) => {
+            const selectedNumber = e.target.id;
             if (firstNumber === "" || operator === "") {
-                firstNumber += e.target.id;
+                firstNumber += selectedNumber;
 
             } else {
-                secondNumber += e.target.id;
+                secondNumber += selectedNumber;
             }
-            display(e.target.id);
+            display(selectedNumber);
         }
     )
 });
@@ -57,10 +57,11 @@ operatorButtons.forEach(button => {
     button.addEventListener(
         "click",
         (e) => {
+            const selectedOperator = e.target.textContent;
             if (firstNumber !== "" && operator === "") {
-                operator = e.target.textContent;
+                operator = selectedOperator;
 
-                display(e.target.textContent);
+                display(selectedOperator);
             }
         }
     )
