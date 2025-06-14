@@ -65,6 +65,18 @@ function clearEverything() {
 
     displayDiv.textContent = "";
 }
+function clearLastInput() {
+    if (firstNumber === "") return;
+
+    if (operator === "") {
+        firstNumber = firstNumber.slice(0, firstNumber.length - 1);
+    } else if (secondNumber === "") {
+        operator = "";
+    } else {
+        secondNumber = secondNumber.slice(0, secondNumber.length - 1);
+    }
+    displayDiv.textContent = displayDiv.textContent.slice(0, displayDiv.textContent.length - 1);
+}
 
 // Event listeners
 numberButtons.forEach(button => {
@@ -109,4 +121,5 @@ operatorButtons.forEach(button => {
 
 equalButton.addEventListener("click", () => operate());
 
+backspaceButton.addEventListener("click", () => clearLastInput());
 clearButton.addEventListener("click", () => clearEverything());
