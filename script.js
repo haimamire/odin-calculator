@@ -30,7 +30,7 @@ function divide(a, b) {
 }
 
 function operate() {
-    if (!isOperationEmpty()) {
+    if (!isOperationIncomplete()) {
         switch(operator) {
             case "+":
                 result = sum(firstNumber, secondNumber)
@@ -50,7 +50,10 @@ function operate() {
     }
 }
 
-function isOperationEmpty() {
+function isEmpty(value) {
+    return value === "" ? true : false;
+}
+function isOperationIncomplete() {
     if (firstNumber === "" || operator === "" || secondNumber === "") return true;
     return false;
 }
@@ -62,7 +65,7 @@ function containsDecimal(number) {
 }
 
 function displayContent() {
-    if (firstNumber === "") {
+    if (isEmpty(firstNumber)) {
         displayDiv.textContent = result;
     } else {
         displayDiv.textContent = `${firstNumber}${operator}${secondNumber}`;
@@ -78,11 +81,11 @@ function clearEverything() {
 }
 
 function clearLastInput() {
-    if (firstNumber === "") return;
+    if (isEmpty(firstNumber)) return;
 
-    if (operator === "") {
+    if (isEmpty(operator)) {
         firstNumber = firstNumber.slice(0, firstNumber.length - 1);
-    } else if (secondNumber === "") {
+    } else if (isEmpty(secondNumber)) {
         operator = "";
     } else {
         secondNumber = secondNumber.slice(0, secondNumber.length - 1);
@@ -95,13 +98,13 @@ numberButtons.forEach(button => {
     button.addEventListener(
         "click",
         (e) => {
-            if (result !== "") {
+            if (!isEmpty(result)) {
                 clearEverything();
                 result = "";
             }
 
             const selectedNumber = e.target.id;
-            if (firstNumber === "" || operator === "") {
+            if (isEmpty(firstNumber) || isEmpty(operator)) {
                 firstNumber += selectedNumber;
 
             } else {
@@ -116,13 +119,13 @@ operatorButtons.forEach(button => {
     button.addEventListener(
         "click",
         (e) => {
-            if (result !== "" && result !== "BRUH") {
+            if (!isEmpty(result) && result !== "BRUH") {
                 firstNumber = result.toString();
                 result = "";
             }
 
             const selectedOperator = e.target.textContent;
-            if (firstNumber !== "" && operator === "") {
+            if (!isEmpty(firstNumber) && isEmpty(operator)) {
                 operator = selectedOperator;
 
                 displayContent();
@@ -134,11 +137,11 @@ operatorButtons.forEach(button => {
 decimalButton.addEventListener(
     "click",
     () => {
-        if (firstNumber !== "") {
-            if (operator === "" && !containsDecimal(firstNumber)) {
+        if (!isEmpty(firstNumber)) {
+            if (isEmpty(operator) && !containsDecimal(firstNumber)) {
                 firstNumber += ".";
                 displayContent();
-            } else if (operator !== "" && secondNumber !== "" && !containsDecimal(secondNumber)) {
+            } else if (!isEmpty(operator) && !isEmpty(secondNumber) && !containsDecimal(secondNumber)) {
                 secondNumber += ".";
                 displayContent();
             }
