@@ -2,6 +2,7 @@
 let firstNumber = "";
 let operator = "";
 let secondNumber = "";
+let result = "";
 
 const displayDiv = document.querySelector(".display");
 const clearButton = document.querySelector("#clear-button");
@@ -26,6 +27,29 @@ function divide(a, b) {
     return Math.round((parseFloat(a) / parseFloat(b)) * 100) / 100;
 }
 
+function operate() {
+    if (!isOperationEmpty()) {
+        switch(operator) {
+            case "+":
+                result = sum(firstNumber, secondNumber)
+                break;
+            case "-":
+                result = substract(firstNumber, secondNumber);
+                break;
+            case "*":
+                result = multiply(firstNumber, secondNumber);
+                break;
+            case "/":
+                result = divide(firstNumber, secondNumber);
+                break;
+        }
+        clearEverything();
+        display(result);
+
+        // firstNumber = result.toString();
+    }
+}
+
 function isOperationEmpty() {
     if (firstNumber === "" || operator === "" || secondNumber === "") return true;
     return false;
@@ -48,6 +72,11 @@ numberButtons.forEach(button => {
         "click",
         (e) => {
             const selectedNumber = e.target.id;
+            if (result !== "") {
+                clearEverything();
+                result = "";
+            }
+
             if (firstNumber === "" || operator === "") {
                 firstNumber += selectedNumber;
 
@@ -73,32 +102,6 @@ operatorButtons.forEach(button => {
     )
 });
 
-equalButton.addEventListener(
-    "click",
-    (e) => {
-        if (!isOperationEmpty()) {
-            let result;
-
-            switch(operator) {
-                case "+":
-                    result = sum(firstNumber, secondNumber)
-                    break;
-                case "-":
-                    result = substract(firstNumber, secondNumber);
-                    break;
-                case "*":
-                    result = multiply(firstNumber, secondNumber);
-                    break;
-                case "/":
-                    result = divide(firstNumber, secondNumber);
-                    break;
-            }
-            clearEverything();
-            display(result);
-
-            firstNumber = result.toString();
-        }
-    }
-);
+equalButton.addEventListener("click", () => operate());
 
 clearButton.addEventListener("click", () => clearEverything());
