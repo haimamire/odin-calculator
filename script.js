@@ -18,7 +18,7 @@ const equalButton = document.querySelector("#equal-button");
 function sum(a, b) {
     return parseFloat(a) + parseFloat(b);
 }
-function substract(a, b) {
+function subtract(a, b) {
     return parseFloat(a) - parseFloat(b);
 }
 function multiply(a, b) {
@@ -36,7 +36,7 @@ function operate() {
                 result = sum(firstNumber, secondNumber)
                 break;
             case "-":
-                result = substract(firstNumber, secondNumber);
+                result = subtract(firstNumber, secondNumber);
                 break;
             case "*":
                 result = multiply(firstNumber, secondNumber);
