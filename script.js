@@ -167,6 +167,8 @@ body.addEventListener(
                 addDecimal();
             } else if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
                 addOperator(e.key);
+            } else if (e.key === "Enter") {
+                operate();
             }
         }
     }
