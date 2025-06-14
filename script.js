@@ -86,7 +86,7 @@ function operate() {
     if (!isOperationIncomplete()) {
         switch(operator) {
             case "+":
-                result = sum(firstNumber, secondNumber)
+                result = sum(firstNumber, secondNumber);
                 break;
             case "-":
                 result = subtract(firstNumber, secondNumber);
@@ -98,6 +98,7 @@ function operate() {
                 result = divide(firstNumber, secondNumber);
                 break;
         }
+        result = result.toString();
         clearEverything();
         displayContent();
     }
@@ -105,11 +106,11 @@ function operate() {
 
 // Display and clear functions
 function displayContent() {
-    if (isEmpty(firstNumber)) {
-        displayDiv.textContent = result;
-    } else {
-        displayDiv.textContent = `${firstNumber}${operator}${secondNumber}`;
+    let content = isEmpty(firstNumber) ? result : `${firstNumber}${operator}${secondNumber}`;
+    if (content.length > 16) {
+        content = content.substring(0, 16) + "…";
     }
+    displayDiv.textContent = content;
 }
 function clearEverything() {
     firstNumber = "";
