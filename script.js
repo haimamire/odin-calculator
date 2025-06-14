@@ -55,6 +55,12 @@ function isOperationEmpty() {
     return false;
 }
 
+function containsDecimal(number) {
+    return number
+        .split("")
+        .includes(".");
+}
+
 function displayContent() {
     if (firstNumber === "") {
         displayDiv.textContent = result;
@@ -124,6 +130,21 @@ operatorButtons.forEach(button => {
         }
     )
 });
+
+decimalButton.addEventListener(
+    "click",
+    () => {
+        if (firstNumber !== "") {
+            if (operator === "" && !containsDecimal(firstNumber)) {
+                firstNumber += ".";
+                displayContent();
+            } else if (operator !== "" && secondNumber !== "" && !containsDecimal(secondNumber)) {
+                secondNumber += ".";
+                displayContent();
+            }
+        }
+    }
+);
 
 equalButton.addEventListener("click", () => operate());
 
