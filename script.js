@@ -45,8 +45,6 @@ function operate() {
         }
         clearEverything();
         display(result);
-
-        // firstNumber = result.toString();
     }
 }
 
@@ -71,12 +69,12 @@ numberButtons.forEach(button => {
     button.addEventListener(
         "click",
         (e) => {
-            const selectedNumber = e.target.id;
             if (result !== "") {
                 clearEverything();
                 result = "";
             }
 
+            const selectedNumber = e.target.id;
             if (firstNumber === "" || operator === "") {
                 firstNumber += selectedNumber;
 
@@ -92,6 +90,11 @@ operatorButtons.forEach(button => {
     button.addEventListener(
         "click",
         (e) => {
+            if (result !== "" && result !== "BRUH") {
+                firstNumber = result.toString();
+                result = "";
+            }
+
             const selectedOperator = e.target.textContent;
             if (firstNumber !== "" && operator === "") {
                 operator = selectedOperator;
