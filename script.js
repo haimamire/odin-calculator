@@ -95,6 +95,8 @@ equalButton.addEventListener(
             }
             clearEverything();
             display(result);
+
+            firstNumber = result.toString();
         }
     }
 );
