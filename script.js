@@ -46,7 +46,7 @@ function operate() {
                 break;
         }
         clearEverything();
-        display(result);
+        displayContent();
     }
 }
 
@@ -55,9 +55,14 @@ function isOperationEmpty() {
     return false;
 }
 
-function display(content) {
-    displayDiv.textContent += content;
+function displayContent() {
+    if (firstNumber === "") {
+        displayDiv.textContent = result;
+    } else {
+        displayDiv.textContent = `${firstNumber}${operator}${secondNumber}`;
+    }
 }
+
 function clearEverything() {
     firstNumber = "";
     operator = "";
@@ -65,6 +70,7 @@ function clearEverything() {
 
     displayDiv.textContent = "";
 }
+
 function clearLastInput() {
     if (firstNumber === "") return;
 
@@ -75,7 +81,7 @@ function clearLastInput() {
     } else {
         secondNumber = secondNumber.slice(0, secondNumber.length - 1);
     }
-    displayDiv.textContent = displayDiv.textContent.slice(0, displayDiv.textContent.length - 1);
+    displayContent();
 }
 
 // Event listeners
@@ -95,7 +101,7 @@ numberButtons.forEach(button => {
             } else {
                 secondNumber += selectedNumber;
             }
-            display(selectedNumber);
+            displayContent();
         }
     )
 });
@@ -113,7 +119,7 @@ operatorButtons.forEach(button => {
             if (firstNumber !== "" && operator === "") {
                 operator = selectedOperator;
 
-                display(selectedOperator);
+                displayContent();
             }
         }
     )
@@ -122,4 +128,5 @@ operatorButtons.forEach(button => {
 equalButton.addEventListener("click", () => operate());
 
 backspaceButton.addEventListener("click", () => clearLastInput());
+
 clearButton.addEventListener("click", () => clearEverything());
