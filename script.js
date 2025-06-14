@@ -72,6 +72,18 @@ function addDecimal() {
     }
 }
 
+function addOperator(selectedOperator) {
+    if (!isEmpty(result) && result !== errorMsg) {
+        firstNumber = result.toString();
+        result = "";
+    }
+    if (!isEmpty(firstNumber) && isEmpty(operator)) {
+        operator = selectedOperator;
+
+        displayContent();
+    }
+}
+
 function operate() {
     if (!isOperationIncomplete()) {
         switch(operator) {
@@ -133,19 +145,7 @@ numberButtons.forEach(button => {
 operatorButtons.forEach(button => {
     button.addEventListener(
         "click",
-        (e) => {
-            if (!isEmpty(result) && result !== errorMsg) {
-                firstNumber = result.toString();
-                result = "";
-            }
-
-            const selectedOperator = e.target.textContent;
-            if (!isEmpty(firstNumber) && isEmpty(operator)) {
-                operator = selectedOperator;
-
-                displayContent();
-            }
-        }
+        (e) => addOperator(e.target.textContent)
     )
 });
 
@@ -165,6 +165,8 @@ body.addEventListener(
                 addNumber(e.key);
             } else if (e.key === ".") {
                 addDecimal();
+            } else if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
+                addOperator(e.key);
             }
         }
     }
