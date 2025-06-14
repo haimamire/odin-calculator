@@ -3,6 +3,7 @@ let firstNumber = "";
 let operator = "";
 let secondNumber = "";
 let result = "";
+const errorMsg = "BRUH"
 
 const displayDiv = document.querySelector(".display");
 const backspaceButton = document.querySelector("#backspace-button");
@@ -25,7 +26,7 @@ function multiply(a, b) {
     return parseFloat(a) * parseFloat(b);
 }
 function divide(a, b) {
-    if (b == 0) return "BRUH";
+    if (b == 0) return errorMsg;
     return Math.round((parseFloat(a) / parseFloat(b)) * 100) / 100;
 }
 
@@ -119,7 +120,7 @@ operatorButtons.forEach(button => {
     button.addEventListener(
         "click",
         (e) => {
-            if (!isEmpty(result) && result !== "BRUH") {
+            if (!isEmpty(result) && result !== errorMsg) {
                 firstNumber = result.toString();
                 result = "";
             }
