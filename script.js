@@ -1,8 +1,6 @@
-let currentOperation = {
-    firstNumber: "",
-    operator: "",
-    secondNumber: ""
-}
+let firstNumber = "";
+let operator = "";
+let secondNumber = "";
 
 const displayDiv = document.querySelector(".display");
 
@@ -28,14 +26,12 @@ function divide(a, b) {
 }
 
 function isOperationEmpty() {
-    for (const key in currentOperation) {
-        if (currentOperation[key] === "") return true;
-    }
+    if (firstNumber === "" || operator === "" || secondNumber === "") return true;
     return false;
 }
 
-function display(displayContent) {
-    displayDiv.textContent += displayContent;
+function display(content) {
+    displayDiv.textContent += content;
 }
 function clearDisplay() {
     displayDiv.textContent = "";
@@ -46,11 +42,11 @@ numberButtons.forEach(button => {
     button.addEventListener(
         "click",
         (e) => {
-            if (currentOperation.firstNumber === "" || currentOperation.operator === "") {
-                currentOperation.firstNumber += e.target.id;
+            if (firstNumber === "" || operator === "") {
+                firstNumber += e.target.id;
 
             } else {
-                currentOperation.secondNumber += e.target.id;
+                secondNumber += e.target.id;
             }
             display(e.target.id);
         }
@@ -61,8 +57,8 @@ operatorButtons.forEach(button => {
     button.addEventListener(
         "click",
         (e) => {
-            if (currentOperation.firstNumber !== "" && currentOperation.operator === "") {
-                currentOperation.operator = e.target.textContent;
+            if (firstNumber !== "" && operator === "") {
+                operator = e.target.textContent;
 
                 display(e.target.textContent);
             }
@@ -74,9 +70,6 @@ equalButton.addEventListener(
     "click",
     (e) => {
         if (!isOperationEmpty()) {
-            let firstNumber = currentOperation.firstNumber;
-            let operator = currentOperation.operator;
-            let secondNumber = currentOperation.secondNumber;
             let result;
 
             switch(operator) {
