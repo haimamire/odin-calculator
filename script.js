@@ -5,11 +5,13 @@ let secondNumber = "";
 let result = "";
 
 const displayDiv = document.querySelector(".display");
+const backspaceButton = document.querySelector("#backspace-button");
 const clearButton = document.querySelector("#clear-button");
 
 // Math buttons selectors
 const numberButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
+const decimalButton = document.querySelector("#decimal-button");
 const equalButton = document.querySelector("#equal-button");
 
 // Basic operations
