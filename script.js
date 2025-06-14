@@ -1,20 +1,20 @@
-// Current operation
+const body = document.querySelector("body");
+const displayDiv = document.querySelector(".display");
+
+// Current operation variables
 let firstNumber = "";
 let operator = "";
 let secondNumber = "";
 let result = "";
 const errorMsg = "BRUH"
 
-const body = document.querySelector("body");
-const displayDiv = document.querySelector(".display");
+// Button selectors
+const numberButtons = document.querySelectorAll(".number");
+const decimalButton = document.querySelector("#decimal-button");
+const operatorButtons = document.querySelectorAll(".operator");
+const equalButton = document.querySelector("#equal-button");
 const backspaceButton = document.querySelector("#backspace-button");
 const clearButton = document.querySelector("#clear-button");
-
-// Math buttons selectors
-const numberButtons = document.querySelectorAll(".number");
-const operatorButtons = document.querySelectorAll(".operator");
-const decimalButton = document.querySelector("#decimal-button");
-const equalButton = document.querySelector("#equal-button");
 
 // Checker functions
 function isEmpty(value) {
@@ -45,6 +45,7 @@ function divide(a, b) {
     return Math.round((parseFloat(a) / parseFloat(b)) * 100) / 100;
 }
 
+// Main functions
 function addNumber(selectedNumber) {
     if (!isEmpty(result)) {
         clearEverything();
@@ -59,7 +60,6 @@ function addNumber(selectedNumber) {
     }
     displayContent();
 }
-
 function addDecimal() {
     if (!isEmpty(firstNumber)) {
         if (isEmpty(operator) && !containsDecimal(firstNumber)) {
@@ -71,7 +71,6 @@ function addDecimal() {
         }
     }
 }
-
 function addOperator(selectedOperator) {
     if (!isEmpty(result) && result !== errorMsg) {
         firstNumber = result.toString();
@@ -83,7 +82,6 @@ function addOperator(selectedOperator) {
         displayContent();
     }
 }
-
 function operate() {
     if (!isOperationIncomplete()) {
         switch(operator) {
@@ -105,6 +103,7 @@ function operate() {
     }
 }
 
+// Display and clear functions
 function displayContent() {
     if (isEmpty(firstNumber)) {
         displayDiv.textContent = result;
@@ -112,7 +111,6 @@ function displayContent() {
         displayDiv.textContent = `${firstNumber}${operator}${secondNumber}`;
     }
 }
-
 function clearEverything() {
     firstNumber = "";
     operator = "";
@@ -120,7 +118,6 @@ function clearEverything() {
 
     displayDiv.textContent = "";
 }
-
 function clearLastInput() {
     if (isEmpty(firstNumber)) return;
 
@@ -157,18 +154,30 @@ backspaceButton.addEventListener("click", () => clearLastInput());
 
 clearButton.addEventListener("click", () => clearEverything());
 
+// Keyboard event listeners
 body.addEventListener(
-    "keypress",
+    "keydown",
     (e) => {
         if (e.key !== " ") {
             if (0 <= +e.key && +e.key <= 9) {
                 addNumber(e.key);
-            } else if (e.key === ".") {
-                addDecimal();
             } else if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
                 addOperator(e.key);
-            } else if (e.key === "Enter") {
-                operate();
+            } else {
+                switch (e.key) {
+                    case ".":
+                        addDecimal();
+                        break;
+                    case "Enter":
+                        operate();
+                        break;
+                    case "Backspace":
+                        clearLastInput();
+                        break;
+                    case "Escape":
+                        clearEverything();
+                        break;
+                }
             }
         }
     }
