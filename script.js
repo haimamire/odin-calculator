@@ -1,8 +1,10 @@
+// Current operation
 let firstNumber = "";
 let operator = "";
 let secondNumber = "";
 
 const displayDiv = document.querySelector(".display");
+const clearButton = document.querySelector("#clear-button");
 
 // Math buttons selectors
 const numberButtons = document.querySelectorAll(".number");
@@ -32,7 +34,11 @@ function isOperationEmpty() {
 function display(content) {
     displayDiv.textContent += content;
 }
-function clearDisplay() {
+function clearEverything() {
+    firstNumber = "";
+    operator = "";
+    secondNumber = "";
+
     displayDiv.textContent = "";
 }
 
@@ -87,8 +93,10 @@ equalButton.addEventListener(
                     result = divide(firstNumber, secondNumber);
                     break;
             }
-            clearDisplay();
+            clearEverything();
             display(result);
         }
     }
-)
+);
+
+clearButton.addEventListener("click", () => clearEverything());
