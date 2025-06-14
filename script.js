@@ -5,6 +5,7 @@ let secondNumber = "";
 let result = "";
 const errorMsg = "BRUH"
 
+const body = document.querySelector("body");
 const displayDiv = document.querySelector(".display");
 const backspaceButton = document.querySelector("#backspace-button");
 const clearButton = document.querySelector("#clear-button");
@@ -15,7 +16,21 @@ const operatorButtons = document.querySelectorAll(".operator");
 const decimalButton = document.querySelector("#decimal-button");
 const equalButton = document.querySelector("#equal-button");
 
-// Basic operations
+// Checker functions
+function isEmpty(value) {
+    return value === "" ? true : false;
+}
+function isOperationIncomplete() {
+    if (firstNumber === "" || operator === "" || secondNumber === "") return true;
+    return false;
+}
+function containsDecimal(number) {
+    return number
+        .split("")
+        .includes(".");
+}
+
+// Basic operation functions
 function sum(a, b) {
     return parseFloat(a) + parseFloat(b);
 }
@@ -28,6 +43,21 @@ function multiply(a, b) {
 function divide(a, b) {
     if (b == 0) return errorMsg;
     return Math.round((parseFloat(a) / parseFloat(b)) * 100) / 100;
+}
+
+function addNumber(selectedNumber) {
+    if (!isEmpty(result)) {
+        clearEverything();
+        result = "";
+    }
+
+    if (isEmpty(firstNumber) || isEmpty(operator)) {
+        firstNumber += selectedNumber;
+
+    } else {
+        secondNumber += selectedNumber;
+    }
+    displayContent();
 }
 
 function operate() {
@@ -49,20 +79,6 @@ function operate() {
         clearEverything();
         displayContent();
     }
-}
-
-function isEmpty(value) {
-    return value === "" ? true : false;
-}
-function isOperationIncomplete() {
-    if (firstNumber === "" || operator === "" || secondNumber === "") return true;
-    return false;
-}
-
-function containsDecimal(number) {
-    return number
-        .split("")
-        .includes(".");
 }
 
 function displayContent() {
@@ -98,21 +114,7 @@ function clearLastInput() {
 numberButtons.forEach(button => {
     button.addEventListener(
         "click",
-        (e) => {
-            if (!isEmpty(result)) {
-                clearEverything();
-                result = "";
-            }
-
-            const selectedNumber = e.target.id;
-            if (isEmpty(firstNumber) || isEmpty(operator)) {
-                firstNumber += selectedNumber;
-
-            } else {
-                secondNumber += selectedNumber;
-            }
-            displayContent();
-        }
+        (e) => addNumber(e.target.id)
     )
 });
 
@@ -155,3 +157,14 @@ equalButton.addEventListener("click", () => operate());
 backspaceButton.addEventListener("click", () => clearLastInput());
 
 clearButton.addEventListener("click", () => clearEverything());
+
+body.addEventListener(
+    "keypress",
+    (e) => {
+        if (e.key !== " ") {
+            if (0 <= +e.key && +e.key <= 9) {
+                addNumber(e.key);
+            }
+        }
+    }
+)
