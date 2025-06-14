@@ -60,6 +60,18 @@ function addNumber(selectedNumber) {
     displayContent();
 }
 
+function addDecimal() {
+    if (!isEmpty(firstNumber)) {
+        if (isEmpty(operator) && !containsDecimal(firstNumber)) {
+            firstNumber += ".";
+            displayContent();
+        } else if (!isEmpty(operator) && !isEmpty(secondNumber) && !containsDecimal(secondNumber)) {
+            secondNumber += ".";
+            displayContent();
+        }
+    }
+}
+
 function operate() {
     if (!isOperationIncomplete()) {
         switch(operator) {
@@ -137,20 +149,7 @@ operatorButtons.forEach(button => {
     )
 });
 
-decimalButton.addEventListener(
-    "click",
-    () => {
-        if (!isEmpty(firstNumber)) {
-            if (isEmpty(operator) && !containsDecimal(firstNumber)) {
-                firstNumber += ".";
-                displayContent();
-            } else if (!isEmpty(operator) && !isEmpty(secondNumber) && !containsDecimal(secondNumber)) {
-                secondNumber += ".";
-                displayContent();
-            }
-        }
-    }
-);
+decimalButton.addEventListener("click",() => addDecimal());
 
 equalButton.addEventListener("click", () => operate());
 
@@ -164,6 +163,8 @@ body.addEventListener(
         if (e.key !== " ") {
             if (0 <= +e.key && +e.key <= 9) {
                 addNumber(e.key);
+            } else if (e.key === ".") {
+                addDecimal();
             }
         }
     }
